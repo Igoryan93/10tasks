@@ -34,16 +34,31 @@
                         <div class="panel-content">
                             <ol class="breadcrumb page-breadcrumb">
                                 <?php
-                                    $arr = [1 => 'Главная', 'PHP', 'Функции'];
-                                    foreach ($arr as $key => $value) {
-                                        if ($value == end($arr)) {
-                                            echo '<li class="breadcrumb-item active">' . $value . '</li>';
-
-                                        } else {
-                                            echo '<li class="breadcrumb-item"><a href="#">' . $value . '</a></li>';
-                                        }
-                                    }
+                                    $breadcrumbs = [
+                                        [
+                                            'title' => 'Главная',
+                                            'linkName'  => 'test@test.ru',
+                                            'link'  => true
+                                        ],
+                                        [
+                                            'title' => 'PHP',
+                                            'linkName'  => 'test@test.ru',
+                                            'link'  => true
+                                        ],
+                                        [
+                                            'title' => 'Функции',
+                                            'linkName'  => '',
+                                            'link'  => false
+                                        ]
+                                    ];
                                 ?>
+                                <?php foreach ($breadcrumbs as $item): ?>
+                                    <?php if($item['link'] == true): ?>
+                                        <li class="breadcrumb-item"><a href="<?php echo $item['linkName'] ?>"><?php echo $item['title'] ?></a></li>
+                                    <?php else: ?>
+                                        <li class="breadcrumb-item active"><?php echo $item['title'] ?></li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </ol>
                         </div>
                     </div>
