@@ -118,27 +118,24 @@
                                         'position' => 'Partner &amp; Contributor',
                                         'email'    => '@sildur',
                                         'nickname' => 'sildur'
-                                    ],
+                                    ]
                                 ];
-
-                                foreach ($arr as $item) {
-                                    echo '
-                                        <div class="rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
-                                            <img src="img/demo/authors/'. $item["img"] .'" alt="'. $item["name"] . '" class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
-                                            <div class="ml-2 mr-3">
-                                                <h5 class="m-0">
-                                                    ' . $item["name"] . ' ' . $item["work"] . ' 
-                                                    <small class="m-0 fw-300">
-                                                        ' . $item["position"] . '
-                                                    </small>
-                                                </h5>
-                                                <a href="https://twitter.com/' . $item["email"] . ' " class="text-info fs-sm" target="_blank">' . $item["email"] . '</a> -
-                                                <a href="https://wrapbootstrap.com/user/'. $item["nickname"] . '" class="text-info fs-sm" target="_blank" title="Contact ' . $item["name"] . '"><i class="fal fa-envelope"></i></a>
-                                            </div>
-                                        </div>
-                                    ';
-                                }
                             ?>
+                            <?php foreach ($arr as $item): ?>
+                               <div class="rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
+                                   <img src="img/demo/authors/<?php echo $item["img"] ?> " alt="<?php echo $item["name"] ?>" class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
+                                   <div class="ml-2 mr-3">
+                                       <h5 class="m-0">
+                                           <?php echo $item["name"] . ' ' . $item["work"]?>
+                                           <small class="m-0 fw-300">
+                                               <?php echo $item["position"] ?>
+                                           </small>
+                                       </h5>
+                                       <a href="https://twitter.com/<?php echo $item["email"] ?>" class="text-info fs-sm" target="_blank"><?php echo $item["email"] ?></a> -
+                                       <a href="https://wrapbootstrap.com/user/<?php echo $item["nickname"] ?>" class="text-info fs-sm" target="_blank" title="Contact <?php echo $item["name"] ?>"><i class="fal fa-envelope"></i></a>
+                                   </div>
+                               </div>
+                            <?php endforeach; ?>
                         </div>
                         </div>
                     </div>
