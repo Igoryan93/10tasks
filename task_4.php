@@ -64,45 +64,66 @@
                                 $arr = [
                                     [
                                         'title'     => 'My Tasks',
-                                        'countTaks' => '130 / 500',
+                                        'value'     => '130 / 500',
                                         'class'     => 'bg-fusion-400',
-                                        'width'     => '65'
+                                        'width'     => '65',
+                                        'valueMin'  => '0',
+                                        'valueMax'  => '100',
+                                        'first'     => true
                                     ],
                                     [
                                         'title'     => 'Transfered',
-                                        'countTaks' => '440 TB',
+                                        'value'     => '440 TB',
                                         'class'     => 'bg-success-500',
-                                        'width'     => '34'
+                                        'width'     => '34',
+                                        'valueMin'  => '0',
+                                        'valueMax'  => '100'
                                     ],
                                     [
                                         'title'     => 'Bugs Squashed',
-                                        'countTaks' => '77%',
+                                        'value'     => '77%',
                                         'class'     => 'bg-info-400',
-                                        'width'     => '77'
+                                        'width'     => '77',
+                                        'valueMin'  => '0',
+                                        'valueMax'  => '100'
                                     ],
                                     [
                                         'title'     => 'User Testing',
-                                        'countTaks' => '84%',
+                                        'value'     => '84%',
                                         'class'     => 'bg-primary-300',
-                                        'width'     => '84'
+                                        'width'     => '84',
+                                        'valueMin'  => '0',
+                                        'valueMax'  => '100'
                                     ],
                                     [
                                         'title'     => 'Test task',
-                                        'countTaks' => '20%',
+                                        'value'     => '20%',
                                         'class'     => 'bg-primary-300',
-                                        'width'     => '20'
+                                        'width'     => '20',
+                                        'valueMin'  => '0',
+                                        'valueMax'  => '100'
                                     ]
                                 ];
-
-                               foreach ($arr as $key => $value) {
-                                   if($value == reset($arr)) {
-                                       echo '<div class="d-flex mt-2">' . $value['title'] . '<span class="d-inline-block ml-auto">' . $value['countTaks'] . '</span> </div>  <div class="progress progress-sm mb-3"> <div class="progress-bar ' . $value['class'] .'" role="progressbar" style="width: ' . $value['width'] .'%;" aria-valuenow="'. $value['width'] .'" aria-valuemin="0" aria-valuemax="100"></div> </div>';
-
-                                   } else {
-                                       echo '<div class="d-flex ">' . $value['title'] . '<span class="d-inline-block ml-auto">' . $value['countTaks'] . '</span> </div>  <div class="progress progress-sm mb-3"> <div class="progress-bar ' . $value['class'] .'" role="progressbar" style="width: ' . $value['width'] .'%;" aria-valuenow="'. $value['width'] .'" aria-valuemin="0" aria-valuemax="100"></div> </div>';
-                                   }
-                               }
                             ?>
+                            <?php foreach ($arr as $item): ?>
+                                <?php if($item["first"] == true): ?>
+                                    <div class="d-flex mt-2">
+                                        <?php echo $item['title'] ?>
+                                        <span class="d-inline-block ml-auto"><?php echo $item['value'] ?></span>
+                                    </div>
+                                    <div class="progress progress-sm mb-3">
+                                        <div class="progress-bar <?php echo $item['class']?>" role="progressbar" style="width: <?php echo $item['width'] ?>%;" aria-valuenow="<?php $item['width'] ?>" aria-valuemin="<?php echo $item['valueMin'] ?>" aria-valuemax="<?php echo $item['valueMax'] ?>"></div>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="d-flex">
+                                        <?php echo $item['title'] ?>
+                                        <span class="d-inline-block ml-auto"><?php echo $item['value'] ?></span>
+                                    </div>
+                                    <div class="progress progress-sm mb-3">
+                                        <div class="progress-bar <?php echo $item['class']?>" role="progressbar" style="width: <?php echo $item['width'] ?>%;" aria-valuenow="<?php $item['width'] ?>" aria-valuemin="<?php echo $item['valueMin'] ?>" aria-valuemax="<?php echo $item['valueMax'] ?>"></div>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
