@@ -65,8 +65,8 @@ if(isset($_POST['text'])) {
                 </div>
             </div>
         </main>
-        
 
+        <p></p>
         <script src="js/vendors.bundle.js"></script>
         <script src="js/app.bundle.js"></script>
         <script>
