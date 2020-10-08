@@ -1,3 +1,21 @@
+<?php
+if(isset($_POST['text'])) {
+    $text = $_POST['text'];
+    $db = mysqli_connect('localhost', 'root','root', 'table_users');
+    $pdo = "SELECT * FROM text WHERE text = '$text'";
+    $res = mysqli_query($db, $pdo);
+    $num = mysqli_num_rows($res);
+    if($num == 0) {
+        $sql = "INSERT INTO text (text) VALUES ('$text')";
+        $result = mysqli_query($db, $sql);
+        if($result) {
+            echo "Вы зарегистрированы!";
+        }
+    } else {
+        header('Location: task_10.php');
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,10 +55,10 @@
                                     <div class="alert alert-danger fade show" role="alert">
                                         You should check in on some of those fields below.
                                     </div>
-                                    <form action="">
+                                    <form action="" method="post">
                                         <label class="form-label" for="simpleinput">Text</label>
-                                        <input type="text" id="simpleinput" class="form-control">
-                                        <button class="btn btn-success mt-3">Submit</button>
+                                        <input type="text" id="simpleinput" class="form-control" name="text">
+                                        <button class="btn btn-success mt-3" type="submit">Submit</button>
                                     </form>
                                 </div>
                             </div>
