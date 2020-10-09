@@ -48,27 +48,25 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $db = mysqli_connect('localhost', 'root','root', 'table_users');
-                                            $pdo = 'SELECT * FROM tasks WHERE id=id';
-                                            $result = mysqli_query($db, $pdo);
-                                            $arr = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-                                            foreach ($arr as $task) {
-                                                echo '
-                                                    <tr>
-                                                        <th scope="row">'. $task["id"] .'</th>
-                                                        <td>'. $task["firstName"] .'</td>
-                                                        <td>'. $task["lastName"] .'</td>
-                                                        <td>'. $task["username"] .'</td>
-                                                        <td>
-                                                            <a href="show.php?id='. $task["id"] .'" class="btn btn-info">Редактировать</a>
-                                                            <a href="edit.php?id=" class="btn btn-warning">Изменить</a>
-                                                            <a href="delete.php?id=" class="btn btn-danger">Удалить</a>
-                                                        </td>
-                                                    </tr>
-                                                ';
-                                            }
+                                            $pdo = new PDO("mysql:host=localhost; dbname=table_users", "root", "root");
+                                            $db = "SELECT * FROM user_accounts WHERE id=id";
+                                            $statement = $pdo->prepare($db);
+                                            $statement->execute();
+                                            $accounts = $statement->fetchAll(PDO::FETCH_ASSOC);
                                         ?>
+                                        <?php foreach($accounts as $user): ?>
+                                            <tr>
+                                                <th scope="row"><?php $user["id"] ?></th>
+                                                <td><?php echo $user["firstName"] ?></td>
+                                                <td><?php echo $user["lastName"] ?></td>
+                                                <td><?php echo $user["username"] ?></td>
+                                                <td>
+                                                    <a href="show.php?id=<?php echo $user["id"] ?>" class="btn btn-info">Редактировать</a>
+                                                    <a href="edit.php?id=<?php echo $user["id"] ?>" class="btn btn-warning">Изменить</a>
+                                                    <a href="delete.php?id=<?php echo $user["id"] ?>" class="btn btn-danger">Удалить</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
 
                                     </tbody>
                                 </table>

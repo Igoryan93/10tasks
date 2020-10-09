@@ -1,18 +1,12 @@
 <?php
-
-    $db = mysqli_connect('localhost', 'root','root', 'table_users');
-    $pdo = 'SELECT * FROM tasks WHERE id=' . $_GET["id"];
-    $result = mysqli_query($db, $pdo);
-    $arr = mysqli_fetch_assoc($result);
-
-//    function showOne($arr, $data) {
-//        var_dump($arr, $data);
-//    }
-//
-//    showOne($arr, $_GET["id"]);
+    $pdo = new PDO("mysql:host=localhost; dbname=table_users", "root", "root");
+    $db = "SELECT * FROM user_accounts WHERE id=id, lastName=lastName";
+    $statement = $pdo->prepare($db);
+    $statement->execute();
+    $users = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<h3><?=  $arr["id"]?></h3>
-<h3><?=  $arr["firstName"]  ?></h3>
-<h3><?=  $arr["lastName"]  ?></h3>
-<h3><?=  $arr["username"]  ?></h3>
+<h3><?php echo $usesr["id"]?></h3>
+<h3><?php echo $users["firstName"] ?></h3>
+<h3><?php echo $users["lastName"] ?></h3>
+<h3><?php echo $users["username"] ?></h3>
