@@ -85,52 +85,45 @@
 <!--                                    <a href="https://wrapbootstrap.com/user/sildur" class="text-info fs-sm" target="_blank" title="Contact Roberto"><i class="fal fa-envelope"></i></a>-->
 <!--                                </div>-->
 <!--                            </div>-->
-                            <?php
-                                $db = mysqli_connect('localhost', 'root','root', 'table_users');
-                                $pdo = 'SELECT id, name, img, work, position, email, nickname, status FROM users';
-                                $result = mysqli_query($db, $pdo);
-                                $arr = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-
-                                foreach ($arr as $item) {
-                                   if($item['status'] == 1) {
-                                       echo '
-                                        <div class="banned rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
-                                            <img src="img/demo/authors/'. $item["img"] .'" alt="'. $item["name"] . '" class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
-                                            <div class="ml-2 mr-3">
-                                                <h5 class="m-0">
-                                                    ' . $item["name"] . ' ' . $item["work"] . ' 
-                                                    <small class="m-0 fw-300">
-                                                        ' . $item["position"] . '
-                                                    </small>
-                                                </h5>
-                                                <a href="https://twitter.com/' . $item["email"] . ' " class="text-info fs-sm" target="_blank">' . $item["email"] . '</a> -
-                                                <a href="https://wrapbootstrap.com/user/'. $item["nickname"] . '" class="text-info fs-sm" target="_blank" title="Contact ' . $item["name"] . '"><i class="fal fa-envelope"></i></a>
-                                            </div>
-                                        </div>
-                                   ';
-                                   } else {
-                                       echo '
-                                        <div class="rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
-                                            <img src="img/demo/authors/'. $item["img"] .'" alt="'. $item["name"] . '" class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
-                                            <div class="ml-2 mr-3">
-                                                <h5 class="m-0">
-                                                    ' . $item["name"] . ' ' . $item["work"] . ' 
-                                                    <small class="m-0 fw-300">
-                                                        ' . $item["position"] . '
-                                                    </small>
-                                                </h5>
-                                                <a href="https://twitter.com/' . $item["email"] . ' " class="text-info fs-sm" target="_blank">' . $item["email"] . '</a> -
-                                                <a href="https://wrapbootstrap.com/user/'. $item["nickname"] . '" class="text-info fs-sm" target="_blank" title="Contact ' . $item["name"] . '"><i class="fal fa-envelope"></i></a>
-                                            </div>
-                                        </div>
-                                       ';
-                                   }
-                                }
-
-                            ?>
-
-                        </div>
+                                <?php
+                                    $pdo = new PDO("mysql:host=localhost; dbname=table_users", "root", "root");
+                                    $db = "SELECT * FROM users WHERE id=id";
+                                    $statement = $pdo->prepare($db);
+                                    $statement->execute();
+                                    $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                ?>
+                                <?php foreach ($users as $user): ?>
+                                   <?php if($user['status'] == 1): ?>
+                                       <div class="banned rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
+                                           <img src="img/demo/authors/<?php echo $user["img"] ?> " alt="<?php echo $user["name"] ?>" class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
+                                           <div class="ml-2 mr-3">
+                                               <h5 class="m-0">
+                                                   <?php echo $user["name"] . ' ' . $user["work"]?>
+                                                   <small class="m-0 fw-300">
+                                                       <?php echo $user["position"] ?>
+                                                   </small>
+                                               </h5>
+                                               <a href="https://twitter.com/<?php echo $user["email"] ?>" class="text-info fs-sm" target="_blank"><?php echo $user["email"] ?></a> -
+                                               <a href="https://wrapbootstrap.com/user/<?php echo $user["nickname"] ?>" class="text-info fs-sm" target="_blank" title="Contact <?php echo $user["name"] ?>"><i class="fal fa-envelope"></i></a>
+                                           </div>
+                                       </div>
+                                   <?php else: ?>
+                                       <div class="rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
+                                           <img src="img/demo/authors/<?php echo $user["img"] ?> " alt="<?php echo $user["name"] ?>" class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
+                                           <div class="ml-2 mr-3">
+                                               <h5 class="m-0">
+                                                   <?php echo $user["name"] . ' ' . $user["work"]?>
+                                                   <small class="m-0 fw-300">
+                                                       <?php echo $user["position"] ?>
+                                                   </small>
+                                               </h5>
+                                               <a href="https://twitter.com/<?php echo $user["email"] ?>" class="text-info fs-sm" target="_blank"><?php echo $user["email"] ?></a> -
+                                               <a href="https://wrapbootstrap.com/user/<?php echo $user["nickname"] ?>" class="text-info fs-sm" target="_blank" title="Contact <?php echo $user["name"] ?>"><i class="fal fa-envelope"></i></a>
+                                           </div>
+                                       </div>
+                                   <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
