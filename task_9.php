@@ -1,21 +1,3 @@
-<?php
-if(isset($_POST['text'])) {
-    $text = $_POST['text'];
-    $db = mysqli_connect('localhost', 'root','root', 'table_users');
-    $pdo = "SELECT * FROM text WHERE text = '$text'";
-    $res = mysqli_query($db, $pdo);
-    $num = mysqli_num_rows($res);
-    if($num == 0) {
-        $sql = "INSERT INTO text (text) VALUES ('$text')";
-        $result = mysqli_query($db, $sql);
-        if($result) {
-            echo "Вы зарегистрированы!";
-        }
-    } else {
-        header('Location: task_10.php');
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +35,7 @@ if(isset($_POST['text'])) {
                         <div class="panel-content">
                             <div class="panel-content">
                                 <div class="form-group">
-                                    <form action="" method="post">
+                                    <form action="save_9.php" method="post">
                                         <label class="form-label" for="simpleinput">Text</label>
                                         <input type="text" id="simpleinput" class="form-control" name="text">
                                         <button class="btn btn-success mt-3" type="submit">Submit</button>
