@@ -1,21 +1,4 @@
-<?php
-if(isset($_POST['text'])) {
-    $text = $_POST['text'];
-    $db = mysqli_connect('localhost', 'root','root', 'table_users');
-    $pdo = "SELECT * FROM text WHERE text = '$text'";
-    $res = mysqli_query($db, $pdo);
-    $num = mysqli_num_rows($res);
-    if($num == 0) {
-        $sql = "INSERT INTO text (text) VALUES ('$text')";
-        $result = mysqli_query($db, $sql);
-        if($result) {
-            echo "Вы зарегистрированы!";
-        }
-    } else {
-        header('Location: task_10.php');
-    }
-}
-?>
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,10 +35,17 @@ if(isset($_POST['text'])) {
                         <div class="panel-content">
                             <div class="panel-content">
                                 <div class="form-group">
-                                    <div class="alert alert-danger fade show" role="alert">
-                                        You should check in on some of those fields below.
-                                    </div>
-                                    <form action="" method="post">
+                                    <?php if(isset($_SESSION['danger'])): ?>
+                                        <div class="alert alert-danger fade show" role="alert">
+                                            <?php echo $_SESSION['danger']; unset($_SESSION['danger']); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if(isset($_SESSION['success'])): ?>
+                                        <div class="alert alert-success fade show" role="alert">
+                                            <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <form action="save_10.php" method="post">
                                         <label class="form-label" for="simpleinput">Text</label>
                                         <input type="text" id="simpleinput" class="form-control" name="text">
                                         <button class="btn btn-success mt-3" type="submit">Submit</button>
